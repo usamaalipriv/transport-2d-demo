@@ -6,6 +6,50 @@
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var waLink = function (text) { return 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text); };
 
+  /* Interface text in the page's language (html lang="en" or "fr") */
+  var NB = ' '; // French puts a non-breaking space before : ? ! ;
+  var T = (document.documentElement.lang || '').slice(0, 2) === 'fr' ? {
+    close: 'Fermer', menu: 'Menu',
+    regionWa: function (n) { return 'Bonjour Transport 2D Sénégal. J’ai besoin d’un transport de carburant vers la région de ' + n + '. Pouvez-vous confirmer que vous livrez dans cette région et ce qu’il vous faut pour établir un devis' + NB + '?'; },
+    regionField: function (n) { return 'Région de ' + n; },
+    regionSelected: function (n) { return 'Région de ' + n + ' sélectionnée.'; },
+    needs: function (k) { return k === 0 ? 'Aucun besoin sélectionné' : k === 1 ? '1 besoin sélectionné' : k + ' besoins sélectionnés'; },
+    thisStatus: 'ce statut',
+    valueMissing: function (l) { return 'Renseignez ce champ' + NB + ': ' + l + '.'; },
+    typeMismatch: 'Saisissez une adresse e-mail, par exemple nom@entreprise.sn.',
+    patternMismatch: 'Utilisez uniquement des chiffres, des espaces et un + facultatif, au moins 8 chiffres.',
+    rangeUnderflow: 'Saisissez un nombre supérieur à zéro.',
+    badInput: 'Saisissez un nombre.',
+    choose: function (l) { return 'Faites un choix' + NB + ': ' + l + '.'; },
+    attach: function (l) { return 'Joignez le fichier demandé' + NB + ': ' + l + '.'; },
+    maxFiles: function (n) { return 'Joignez ' + n + ' fichiers au maximum.'; },
+    badType: function (f, a) { return f + ' n’est pas un type de fichier accepté (' + a + ').'; },
+    tooBig: function (f, mb) { return f + ' dépasse ' + mb + ' Mo.'; },
+    tick: 'Cochez cette case pour continuer.',
+    waIntro: 'Bonjour Transport 2D Sénégal. Je viens d’envoyer une demande sur votre site.',
+    sending: 'Envoi en cours'
+  } : {
+    close: 'Close', menu: 'Menu',
+    regionWa: function (n) { return 'Hello Transport 2D Sénégal. I need fuel transport to the ' + n + ' region. Can you confirm whether you deliver there and what you need from me for a quote?'; },
+    regionField: function (n) { return n + ' region'; },
+    regionSelected: function (n) { return n + ' region selected.'; },
+    needs: function (k) { return k === 0 ? 'No needs selected yet' : k === 1 ? '1 need selected' : k + ' needs selected'; },
+    thisStatus: 'this status',
+    valueMissing: function (l) { return 'Fill in ' + l.toLowerCase() + '.'; },
+    typeMismatch: 'Enter an email address like name@company.sn.',
+    patternMismatch: 'Use digits, spaces and an optional + only, at least 8 digits.',
+    rangeUnderflow: 'Enter a number above zero.',
+    badInput: 'Enter a number.',
+    choose: function (l) { return 'Choose ' + l.toLowerCase() + '.'; },
+    attach: function (l) { return 'Attach your ' + l + '.'; },
+    maxFiles: function (n) { return 'Attach up to ' + n + ' files.'; },
+    badType: function (f, a) { return f + ' is not an accepted file type (' + a + ').'; },
+    tooBig: function (f, mb) { return f + ' is larger than ' + mb + ' MB.'; },
+    tick: 'Tick this box to continue.',
+    waIntro: 'Hello Transport 2D Sénégal. I just sent a request on your website.',
+    sending: 'Sending'
+  };
+
   /* Analytics hook (brief 16.1: record WhatsApp clicks). Pushes to dataLayer if a tag manager is added later. */
   window.dataLayer = window.dataLayer || [];
   document.addEventListener('click', function (e) {
@@ -21,14 +65,14 @@
       menuBtn.setAttribute('aria-expanded', String(open));
       menu.hidden = !open;
       $('.site-header').classList.toggle('is-open', open);
-      $('.menu-label', menuBtn).textContent = open ? 'Close' : 'Menu';
+      $('.menu-label', menuBtn).textContent = open ? T.close : T.menu;
       if (open) { var first = $('a', menu); if (first) first.focus(); }
     };
     menuBtn.addEventListener('click', function () { setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'); });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !menu.hidden) { setMenu(false); menuBtn.focus(); }
     });
-    window.matchMedia('(min-width: 1181px)').addEventListener('change', function (mq) { if (mq.matches) setMenu(false); });
+    window.matchMedia('(min-width: 1321px)').addEventListener('change', function (mq) { if (mq.matches) setMenu(false); });
   }
 
   /* Header: transparent over the opening photo, solid navy once the page has scrolled */
@@ -92,10 +136,10 @@
       $('[data-empty]', panel).hidden = true;
       $('[data-filled]', panel).hidden = false;
       $('[data-region-name]', panel).textContent = name;
-      $('[data-region-wa]', panel).href = waLink('Hello Transport 2D Sénégal. I need fuel transport to the ' + name + ' region. Can you confirm whether you deliver there and what you need from me for a quote?');
-      $('[data-region-quote]', panel).href = 'quote.html?delivery=' + encodeURIComponent(name + ' region');
+      $('[data-region-wa]', panel).href = waLink(T.regionWa(name));
+      $('[data-region-quote]', panel).href = 'quote.html?delivery=' + encodeURIComponent(T.regionField(name));
       if (picker) picker.value = iso;
-      if (opts && opts.announce) { var live = $('#region-live'); if (live) live.textContent = name + ' region selected.'; }
+      if (opts && opts.announce) { var live = $('#region-live'); if (live) live.textContent = T.regionSelected(name); }
     };
     mapRoot.addEventListener('click', function (e) {
       var r = e.target.closest('.region');
@@ -123,7 +167,7 @@
     var go = $('#selector-go', selector);
     var update = function () {
       var picked = boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.value; });
-      count.textContent = picked.length === 0 ? 'No needs selected yet' : picked.length === 1 ? '1 need selected' : picked.length + ' needs selected';
+      count.textContent = T.needs(picked.length);
       go.href = 'quote.html' + (picked.length ? '?services=' + picked.map(encodeURIComponent).join(',') : '');
     };
     boxes.forEach(function (b) { b.addEventListener('change', update); });
@@ -164,18 +208,18 @@
         });
         table.hidden = shown === 0;
         empty.hidden = shown !== 0;
-        if (emptyText) emptyText.textContent = btn.getAttribute('data-label') || 'this status';
+        if (emptyText) emptyText.textContent = btn.getAttribute('data-label') || T.thisStatus;
       });
     });
   }
 
   /* Forms: validation, file checks, loading, success, WhatsApp hand-off */
   var MESSAGES = {
-    valueMissing: function (label) { return 'Fill in ' + label.toLowerCase() + '.'; },
-    typeMismatch: function () { return 'Enter an email address like name@company.sn.'; },
-    patternMismatch: function () { return 'Use digits, spaces and an optional + only, at least 8 digits.'; },
-    rangeUnderflow: function () { return 'Enter a number above zero.'; },
-    badInput: function () { return 'Enter a number.'; }
+    valueMissing: T.valueMissing,
+    typeMismatch: function () { return T.typeMismatch; },
+    patternMismatch: function () { return T.patternMismatch; },
+    rangeUnderflow: function () { return T.rangeUnderflow; },
+    badInput: function () { return T.badInput; }
   };
   var labelFor = function (el) {
     var field = el.closest('.field');
@@ -211,13 +255,13 @@
     var allowed = (input.getAttribute('data-types') || '').split(',').filter(Boolean);
     var files = Array.prototype.slice.call(input.files || []);
     var maxCount = parseInt(input.getAttribute('data-max-files') || '5', 10);
-    if (input.required && files.length === 0) return 'Attach your ' + labelFor(input) + '.';
-    if (files.length > maxCount) return 'Attach up to ' + maxCount + ' files.';
+    if (input.required && files.length === 0) return T.attach(labelFor(input));
+    if (files.length > maxCount) return T.maxFiles(maxCount);
     for (var i = 0; i < files.length; i++) {
       var f = files[i];
       var ext = (f.name.split('.').pop() || '').toLowerCase();
-      if (allowed.length && allowed.indexOf(ext) < 0) return f.name + ' is not an accepted file type (' + allowed.join(', ').toUpperCase() + ').';
-      if (f.size > max * 1024 * 1024) return f.name + ' is larger than ' + max + ' MB.';
+      if (allowed.length && allowed.indexOf(ext) < 0) return T.badType(f.name, allowed.join(', ').toUpperCase());
+      if (f.size > max * 1024 * 1024) return T.tooBig(f.name, max);
     }
     return '';
   };
@@ -225,7 +269,7 @@
     if (el.type === 'file') { var fe = checkFiles(el); setError(el, fe); return !fe; }
     if (el.type === 'checkbox' && el.required) {
       var ok = el.checked;
-      setError(el, ok ? '' : (el.getAttribute('data-required-msg') || 'Tick this box to continue.'));
+      setError(el, ok ? '' : (el.getAttribute('data-required-msg') || T.tick));
       return ok;
     }
     if (el.willValidate === false) return true;
@@ -233,12 +277,12 @@
     if (v.valid) { setError(el, ''); return true; }
     var key = ['valueMissing', 'typeMismatch', 'patternMismatch', 'rangeUnderflow', 'badInput'].filter(function (k) { return v[k]; })[0];
     var msg = key ? MESSAGES[key](labelFor(el)) : el.validationMessage;
-    if (key === 'valueMissing' && (el.type === 'radio' || el.tagName === 'SELECT')) msg = 'Choose ' + labelFor(el).toLowerCase() + '.';
+    if (key === 'valueMissing' && (el.type === 'radio' || el.tagName === 'SELECT')) msg = T.choose(labelFor(el));
     setError(el, msg);
     return false;
   };
   var summaryText = function (form) {
-    var lines = [form.getAttribute('data-wa-intro') || 'Hello Transport 2D Sénégal. I just sent a request on your website.'];
+    var lines = [form.getAttribute('data-wa-intro') || T.waIntro];
     $$('[data-summary]', form).forEach(function (el) {
       var val = '';
       if (el.type === 'checkbox' || el.type === 'radio') {
@@ -296,7 +340,7 @@
       var btn = $('button[type="submit"]', form);
       var original = btn.innerHTML;
       btn.disabled = true;
-      btn.innerHTML = '<span class="spinner" aria-hidden="true"></span>Sending';
+      btn.innerHTML = '<span class="spinner" aria-hidden="true"></span>' + T.sending;
       form.setAttribute('aria-busy', 'true');
 
       window.setTimeout(function () {
