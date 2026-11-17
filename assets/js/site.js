@@ -20,6 +20,7 @@
     var setMenu = function (open) {
       menuBtn.setAttribute('aria-expanded', String(open));
       menu.hidden = !open;
+      $('.site-header').classList.toggle('is-open', open);
       $('.menu-label', menuBtn).textContent = open ? 'Close' : 'Menu';
       if (open) { var first = $('a', menu); if (first) first.focus(); }
     };
@@ -27,7 +28,36 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !menu.hidden) { setMenu(false); menuBtn.focus(); }
     });
-    window.matchMedia('(min-width: 1141px)').addEventListener('change', function (mq) { if (mq.matches) setMenu(false); });
+    window.matchMedia('(min-width: 1181px)').addEventListener('change', function (mq) { if (mq.matches) setMenu(false); });
+  }
+
+  /* Header: transparent over the opening photo, solid navy once the page has scrolled */
+  var onScroll = function () { document.body.classList.toggle('is-scrolled', window.scrollY > 24); };
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { onScroll(); ticking = false; });
+  }, { passive: true });
+  onScroll();
+
+  /* Reveal: blocks marked data-reveal fade up once when they enter the screen.
+     Section heads and service blocks on inner pages get the same treatment. */
+  $$('main .section-head, main .service-block, main .split > *').forEach(function (el) {
+    if (!el.closest('.page-intro') && !el.hasAttribute('data-reveal')) el.setAttribute('data-reveal', '');
+  });
+  var reveals = $$('[data-reveal]');
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var rio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in');
+        rio.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach(function (el) { rio.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
 
   /* Floating WhatsApp button: step aside when a form's buttons or the footer are on screen */
