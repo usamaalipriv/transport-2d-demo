@@ -17,8 +17,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..800&display=swap">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/css/site.css?v=mwl7780y">
-<script src="assets/js/site.js?v=mwl7780y" defer></script>
+<link rel="stylesheet" href="assets/css/site.css?v=mwl945dx">
+<script src="assets/js/site.js?v=mwl945dx" defer></script>
 </head>
 <body class="">
 <a class="skip" href="#main">Skip to content</a>
@@ -102,40 +102,58 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <h2 id="carry-h">What we carry</h2>
-        <p>Refined petroleum products, collected at the depot and delivered to stations, industrial sites and approved commercial clients. The live site will list only the products Transport 2D is authorised and equipped to carry. <span class="tbc">Product list to confirm</span></p>
+        <p>Refined petroleum products, collected at the depot and delivered to your site. Here is what each one is and who it usually goes to. <span class="tbc">Final product list to confirm</span></p>
       </div>
-      <ul class="products" data-reveal>
-        <li class="product">
-          <span class="plate" role="img" aria-label="Orange plate: hazard number 30, UN number 1202"><span>30</span><span>1202</span></span>
-          <h3>Diesel</h3>
-          <span class="plate-code">Hazard 30, UN 1202</span>
-          <p>Gas oil for service stations, vehicle fleets and site generators.</p>
-        </li>
-        <li class="product">
-          <span class="plate" role="img" aria-label="Orange plate: hazard number 33, UN number 1203"><span>33</span><span>1203</span></span>
-          <h3>Petrol</h3>
-          <span class="plate-code">Hazard 33, UN 1203</span>
-          <p>Motor spirit for service station networks.</p>
-        </li>
-        <li class="product">
-          <span class="plate plate-blank" role="img" aria-label="Orange plate, number depends on the grade"><span></span><span></span></span>
-          <h3>Fuel oil</h3>
-          <span class="plate-code">Number set by grade</span>
-          <p>Heavier grades for industrial users.</p>
-        </li>
-        <li class="product">
-          <span class="plate plate-blank" role="img" aria-label="Orange plate, number depends on the product"><span></span><span></span></span>
-          <h3>Lubricants</h3>
-          <span class="plate-code">Number set by product</span>
-          <p>Bulk lubricants for depots, workshops and industrial sites.</p>
-        </li>
-        <li class="product">
-          <span class="plate plate-blank" role="img" aria-label="Orange plate, number depends on the product"><span></span><span></span></span>
-          <h3>Other refined products</h3>
-          <span class="plate-code">Number set by product</span>
-          <p>Carried once Transport 2D confirms it is authorised and equipped for them.</p>
-        </li>
-      </ul>
+      <div class="carry" data-reveal>
+        <div class="carry-cols" aria-hidden="true">
+          <span>Product</span><span>What it is</span><span>Delivered to</span><span>Tanker plate</span>
+        </div>
+        <ul class="carry-list">
+          <li class="carry-row">
+            <div class="carry-name"><h3>Diesel</h3><span>Also called gas oil</span></div>
+            <div class="carry-cell"><span class="cell-label">What it is</span>Fuel for trucks, vehicle fleets and site generators.</div>
+            <div class="carry-cell"><span class="cell-label">Delivered to</span>Service stations, fleet operators and industrial sites</div>
+            <div class="carry-plate"><span class="cell-label">Tanker plate</span><span class="plate plate-sm" role="img" aria-label="Orange plate: hazard number 30, UN number 1202"><span>30</span><span>1202</span></span></div>
+          </li>
+          <li class="carry-row">
+            <div class="carry-name"><h3>Petrol</h3><span>Also called motor spirit</span></div>
+            <div class="carry-cell"><span class="cell-label">What it is</span>Fuel for cars and light vehicles.</div>
+            <div class="carry-cell"><span class="cell-label">Delivered to</span>Service station networks</div>
+            <div class="carry-plate"><span class="cell-label">Tanker plate</span><span class="plate plate-sm" role="img" aria-label="Orange plate: hazard number 33, UN number 1203"><span>33</span><span>1203</span></span></div>
+          </li>
+          <li class="carry-row">
+            <div class="carry-name"><h3>Fuel oil</h3><span>Industrial grades</span></div>
+            <div class="carry-cell"><span class="cell-label">What it is</span>Heavier fuel grades for industrial use.</div>
+            <div class="carry-cell"><span class="cell-label">Delivered to</span>Industrial sites</div>
+            <div class="carry-plate"><span class="cell-label">Tanker plate</span><span class="plate-note">Varies by grade</span></div>
+          </li>
+          <li class="carry-row">
+            <div class="carry-name"><h3>Lubricants</h3><span>Delivered in bulk</span></div>
+            <div class="carry-cell"><span class="cell-label">What it is</span>Oils for engines and machinery.</div>
+            <div class="carry-cell"><span class="cell-label">Delivered to</span>Depots, workshops and industrial sites</div>
+            <div class="carry-plate"><span class="cell-label">Tanker plate</span><span class="plate-note">Varies by product</span></div>
+          </li>
+          <li class="carry-row">
+            <div class="carry-name"><h3>Other refined products</h3><span>On request</span></div>
+            <div class="carry-cell"><span class="cell-label">What it is</span>Carried once Transport 2D confirms it is authorised and equipped for them.</div>
+            <div class="carry-cell"><span class="cell-label">Delivered to</span>Approved commercial clients</div>
+            <div class="carry-plate"><span class="cell-label">Tanker plate</span><span class="plate-note">Varies by product</span></div>
+          </li>
+        </ul>
+        <div class="carry-foot">
+          <figure class="plate-guide">
+            <figcaption class="plate-guide-title">How to read the orange plate on a tanker</figcaption>
+            <div class="plate-guide-body">
+              <span class="plate plate-lg" role="img" aria-label="Example plate: 33 over 1203"><span>33</span><span>1203</span></span>
+              <dl class="plate-guide-keys">
+                <div><dt>Top number: the hazard</dt><dd>30 means flammable liquid. 33 means highly flammable liquid.</dd></div>
+                <div><dt>Bottom number: the product</dt><dd>Its UN number. 1202 is diesel, 1203 is petrol.</dd></div>
+              </dl>
+            </div>
+          </figure>
+          <p class="carry-ask"><strong>Not sure we can carry your product?</strong>Send the product name and the team will tell you. <a href="https://wa.me/221781300198?text=Hello%20Transport%202D%20S%C3%A9n%C3%A9gal.%20I%20visited%20your%20website%20and%20would%20like%20more%20information%20about%20your%20hydrocarbon%20transport%20and%20fuel%20logistics%20services." data-track="whatsapp" rel="noopener" target="_blank">Ask on WhatsApp</a></p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -164,22 +182,48 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <h2 id="journey-h">What happens after you send a request</h2>
-        <p>Each job is priced on its own, because the cost depends on the product, the volume, the distance and the schedule. This is the route from first message to delivery note.</p>
+        <p>Four steps from your first message to the delivery note. Each job is priced on its own, because the cost depends on the product, the volume, the distance and the schedule.</p>
       </div>
-      <ol class="route" data-reveal>
-        <li class="is-you"><strong>You send the requirement</strong><span>Through the <a href="quote.html">quote form</a> or on <a href="https://wa.me/221781300198?text=Hello%20Transport%202D%20S%C3%A9n%C3%A9gal.%20I%20would%20like%20to%20request%20a%20quote%20for%20hydrocarbon%20transport.%20Please%20contact%20me%20so%20that%20I%20can%20share%20the%20product%20type%2C%20estimated%20quantity%2C%20loading%20point%2C%20delivery%20location%20and%20preferred%20schedule." data-track="whatsapp" rel="noopener" target="_blank">WhatsApp</a>.</span></li>
-        <li><strong>We review it</strong><span>Product, quantity, route, schedule, vehicle and safety requirements.</span></li>
-        <li><strong>We confirm the details</strong><span>The team contacts you to check the operational points.</span></li>
-        <li class="is-you"><strong>You receive a quote</strong><span>Or a commercial proposal for recurring work.</span></li>
-        <li class="is-you"><strong>You approve</strong><span>The quote and the applicable terms.</span></li>
-        <li><strong>We plan the job</strong><span>Vehicle, driver, route, schedule and documents.</span></li>
-        <li><strong>We deliver</strong><span>Following the procedures agreed with you.</span></li>
-        <li class="is-you"><strong>You get confirmation</strong><span>Delivery confirmation and the service documents.</span></li>
+      <ol class="steps" data-reveal>
+        <li class="step">
+          <div class="step-top"><span class="step-no">01</span><span class="who who-you">You</span></div>
+          <h3>Send your requirement</h3>
+          <p>Use the <a href="quote.html">quote form</a> or <a href="https://wa.me/221781300198?text=Hello%20Transport%202D%20S%C3%A9n%C3%A9gal.%20I%20would%20like%20to%20request%20a%20quote%20for%20hydrocarbon%20transport.%20Please%20contact%20me%20so%20that%20I%20can%20share%20the%20product%20type%2C%20estimated%20quantity%2C%20loading%20point%2C%20delivery%20location%20and%20preferred%20schedule." data-track="whatsapp" rel="noopener" target="_blank">WhatsApp</a>. Tell us what needs moving, where from, where to and when.</p>
+        </li>
+        <li class="step">
+          <div class="step-top"><span class="step-no">02</span><span class="who">Transport 2D</span></div>
+          <h3>We review it and contact you</h3>
+          <p>The team checks the product, quantity, route, schedule, vehicle and safety requirements, then contacts you to confirm the details.</p>
+        </li>
+        <li class="step">
+          <div class="step-top"><span class="step-no">03</span><span class="who who-you">You</span></div>
+          <h3>Receive and approve the quote</h3>
+          <p>You get a quote, or a commercial proposal for recurring work. You approve the quote and the applicable terms.</p>
+        </li>
+        <li class="step">
+          <div class="step-top"><span class="step-no">04</span><span class="who">Transport 2D</span></div>
+          <h3>We plan and deliver</h3>
+          <p>We plan the vehicle, driver, route, schedule and documents, deliver following the procedures agreed with you, then send delivery confirmation and the service documents.</p>
+        </li>
       </ol>
-      <ul class="route-key" aria-hidden="true">
-        <li><i class="you"></i>Your steps</li>
-        <li><i></i>Transport 2D's steps</li>
-      </ul>
+
+      <div class="prep" data-reveal>
+        <div class="prep-copy">
+          <h3>Have these five details ready</h3>
+          <p>They are what the team needs to price your job. If you do not know one yet, send what you have and the team will ask.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="quote.html">Fill in the quote form</a>
+            <a class="btn btn-wa" href="https://wa.me/221781300198?text=Hello%20Transport%202D%20S%C3%A9n%C3%A9gal.%20I%20would%20like%20to%20request%20a%20quote%20for%20hydrocarbon%20transport.%20Please%20contact%20me%20so%20that%20I%20can%20share%20the%20product%20type%2C%20estimated%20quantity%2C%20loading%20point%2C%20delivery%20location%20and%20preferred%20schedule." data-track="whatsapp" rel="noopener" target="_blank"><svg class="wa-ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3.2A12.7 12.7 0 0 0 5.1 22.4L3.3 28.8l6.6-1.7A12.8 12.8 0 1 0 16 3.2Zm0 23.2c-2 0-3.9-.5-5.5-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.5 10.5 0 1 1 16 26.4Zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.7 5.8 5.1 2.2.9 3 1 4.1.8.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5 0-.2-.3-.3-.6-.4Z"/></svg>Send on WhatsApp</a>
+          </div>
+        </div>
+        <ol class="prep-list">
+          <li><span class="prep-no">01</span><strong>Product type</strong><span>For example diesel or petrol</span></li>
+          <li><span class="prep-no">02</span><strong>Estimated quantity</strong><span>In litres, m³ or tonnes</span></li>
+          <li><span class="prep-no">03</span><strong>Loading point</strong><span>Depot or site to collect from</span></li>
+          <li><span class="prep-no">04</span><strong>Delivery location</strong><span>Site, town or region</span></li>
+          <li><span class="prep-no">05</span><strong>Preferred schedule</strong><span>One delivery or recurring, and the date</span></li>
+        </ol>
+      </div>
     </div>
   </section>
 
